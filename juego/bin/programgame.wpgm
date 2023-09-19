@@ -11,10 +11,13 @@ program mapa{
 	game.ground("piso.png")
 	game.addVisual(enemigo)
 	game.addVisualCharacter(personaje)
+	
+	
 	game.whenCollideDo(personaje, {elemento =>
 		personaje.putear()
-		game.say(personaje, personaje.putear()
-			)})
+		game.say(personaje, personaje.putear())})
+		
+		
 	game.onTick(1000, "movement", { enemigo.movete() })
 			
 	game.start()
