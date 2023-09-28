@@ -1,0 +1,26 @@
+import wollok.game.*
+import enemigo.*
+import personaje.*
+
+  
+program mapa{
+	game.title("Dungeon Escape")
+	game.width(13)
+	game.height(7)
+	game.cellSize(82)
+	game.ground("piso.png")
+	game.addVisual(enemigo)
+	game.addVisual(personaje)
+	www
+	
+	game.whenCollideDo(personaje, {elemento =>
+		personaje.putear()
+		game.say(personaje, personaje.putear())})
+		
+		
+	game.onTick(1000, "movement", { enemigo.movete() })
+			
+	game.start()
+
+}
+                         
