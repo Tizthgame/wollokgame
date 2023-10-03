@@ -2,24 +2,42 @@ import wollok.game.*
 import enemigo.*
 import personaje.*
 
-  
+ //Configuraciones
 program mapa{
 	game.title("Dungeon Escape")
 	game.width(13)
 	game.height(7)
 	game.cellSize(82)
 	game.ground("piso.png")
+//Visuales
 	game.addVisual(enemigo)
-	game.addVisualCharacter(personaje)
+	game.addVisual(personaje)
 	
 	
+	keyboard.w().onPressDo{personaje.position(personaje.position().up(1))}
+	keyboard.a().onPressDo{personaje.position(personaje.position().left(1))}
+	keyboard.s().onPressDo{personaje.position(personaje.position().down(1))}
+	keyboard.d().onPressDo{personaje.position(personaje.position().right(1))}
+		
+
+	
+	
+	
+	
+
 	game.whenCollideDo(personaje, {elemento =>
 		personaje.putear()
 		game.say(personaje, personaje.putear())})
 		
+
 		
+
 	game.onTick(1000, "movement", { enemigo.movete() })
-			
+/*Moviniebto aleatorio del enemigo cada 1 segundo */
+	
+	keyboard.p().onPressDo{game.removeTickEvent("movement")} 
+/*Cuando se preciona la tecla "P", se detiene el movimiento aleaatorio del enemigo*/
+	
 	game.start()
 
 }
