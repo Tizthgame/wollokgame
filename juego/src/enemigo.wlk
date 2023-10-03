@@ -1,7 +1,9 @@
 import wollok.game.*
 
 object enemigo{
-	var property position = game.center()
+	var property x = 8
+	var property y = 3
+	var property position = game.at(x,y)
 	
 	method image(){
 		return "fullmonster.png"
@@ -10,10 +12,11 @@ object enemigo{
 
 	
 	method movete() {
-    const x = 0.randomUpTo(game.width()).truncate(0)
-    const y = 0.randomUpTo(game.height()).truncate(0)
+    x = 0.randomUpTo(game.width()).truncate(0)
+    y = 0.randomUpTo(game.height()).truncate(0)
     position = game.at(x,y) 
 		}
+
 	
 
 }
