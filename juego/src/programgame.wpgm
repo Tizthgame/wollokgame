@@ -1,6 +1,7 @@
 import wollok.game.*
 import enemigo.*
 import personaje.*
+import paredes.*
 
  //Configuraciones
 program mapa{
@@ -12,33 +13,41 @@ program mapa{
 //Visuales
 	game.addVisual(enemigo)
 	game.addVisual(personaje)
+	game.addVisual(pared)
+
 	
+// x = 0.randomUpTo(game.width()).truncate(0)
+// y = 0.randomUpTo(game.height()).truncate(0)	
+
+//Movimiento Personaje
+
+
+		keyboard.d().onPressDo{personaje.position(personaje.position().right(1))}
+		keyboard.a().onPressDo{personaje.position(personaje.position().left(1))}
+		keyboard.w().onPressDo{personaje.position(personaje.position().up(1))}
+		keyboard.s().onPressDo{personaje.position(personaje.position().down(1))}
+		
+		
+		game.whenCollideDo(personaje, {elemento =>
+			personaje.morir()
+			game.stop()
+			})
 	
-	keyboard.w().onPressDo{personaje.position(personaje.position().up(1))}
-	keyboard.a().onPressDo{personaje.position(personaje.position().left(1))}
-	keyboard.s().onPressDo{personaje.position(personaje.position().down(1))}
-	keyboard.d().onPressDo{personaje.position(personaje.position().right(1))}
+		game.whenCollideDo(personaje, {elemento =>
+			personaje.putear()
+			game.say(personaje, personaje.putear())})
 		
 
-	
-	
-	
-	
 
-	game.whenCollideDo(personaje, {elemento =>
-		personaje.putear()
-		game.say(personaje, personaje.putear())})
-		
-
-		
-
-	game.onTick(1000, "movement", { enemigo.movete() })
+		game.onTick(1000, "movement", { enemigo.movete() })
 /*Moviniebto aleatorio del enemigo cada 1 segundo */
 	
-	keyboard.p().onPressDo{game.removeTickEvent("movement")} 
+		keyboard.p().onPressDo{game.removeTickEvent("movement")} 
 /*Cuando se preciona la tecla "P", se detiene el movimiento aleaatorio del enemigo*/
 	
 	game.start()
 
 }
+
+                         
                          
