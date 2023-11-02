@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
-Automatic-Module-Name: nono
+Automatic-Module-Name: gameagain
 Bundle-ManifestVersion: 2
-Bundle-Name: nono
+Bundle-Name: gameagain
 Bundle-Vendor: My Company
 Bundle-Version: 1.0.0.qualifier
-Bundle-SymbolicName: nono; singleton:=true
+Bundle-SymbolicName: gameagain; singleton:=true
 Bundle-ActivationPolicy: lazy
 Require-Bundle: com.ibm.icu,
  org.eclipse.xtext,
