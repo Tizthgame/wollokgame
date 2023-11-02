@@ -3,6 +3,8 @@ import enemigo.*
 import personaje.*
 import paredes.*
 
+
+
  //Configuraciones
 program mapa{
 	game.title("Dungeon Escape")
@@ -20,25 +22,74 @@ program mapa{
 // y = 0.randomUpTo(game.height()).truncate(0)	
 
 //Movimiento Personaje
-
-
-		keyboard.d().onPressDo{personaje.position(personaje.position().right(1))}
-		keyboard.a().onPressDo{personaje.position(personaje.position().left(1))}
-		keyboard.w().onPressDo{personaje.position(personaje.position().up(1))}
-		keyboard.s().onPressDo{personaje.position(personaje.position().down(1))}
+		keyboard.d().onPressDo{personaje.position(if(personaje.position().right(1).x() == 13){
+			return null}
+		else{
+			personaje.position().right(1)
+		})}
+		game.whenCollideDo(personaje, {pared =>
+			if(personaje.position().right(1).x() == pared.position())
+				personaje.position().left(1).x()
+		})
+/*----------------------------------------------------------------------------------------------------- */		
+		keyboard.a().onPressDo{personaje.position(if(personaje.position().left(1).x() == -1){
+			return null}
+		else{
+			personaje.position().left(1)
+		})}
+			game.whenCollideDo(personaje, {pared =>
+			if(personaje.position().left(1).x() == pared.position())
+				personaje.position().right(1).x()
+		})
+/*----------------------------------------------------------------------------------------------------- */	
+		keyboard.w().onPressDo{personaje.position(if (personaje.position().up(1).y() == 7){
+			return null}
+		else{
+			personaje.position().up(1)
+		})}
+			game.whenCollideDo(personaje, {pared =>
+			if(personaje.position().up(1).y() == pared.position())
+				personaje.position().down(1).y()
+		})
+/*----------------------------------------------------------------------------------------------------- */
+		keyboard.s().onPressDo{personaje.position(if (personaje.position().down(1).y() == -1){
+			return null}
+		else{
+			personaje.position().down(1)
+			})}
+				game.whenCollideDo(personaje, {pared =>
+			if(personaje.position().down(1).y() == pared.position())
+				personaje.position().up(1).y()
+		})
+			
 		
-		
-		game.whenCollideDo(personaje, {elemento =>
+//Coliciones
+		game.whenCollideDo(personaje, {enemigo =>
+			if(enemigo.identificador() == "enemigo"){
 			personaje.morir()
 			game.stop()
-			})
+			}})
 	
-		game.whenCollideDo(personaje, {elemento =>
-			personaje.putear()
-			game.say(personaje, personaje.putear())})
+		game.whenCollideDo(personaje, {pared =>
+			if(pared.identificador() == "pared"){
+			game.say(personaje, personaje.putear())}})
 		
 
-
+		game.whenCollideDo(personaje, {pared =>
+			if(personaje.position().x() == pared.position().x() and personaje.position().y() == pared.position().y()){
+				
+			}})
+		
+/*var  = 
+[[0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0],
+[0,0,0,0,0,0,0,0,0,0,0,0,0]]*/
+		
+		
 		game.onTick(1000, "movement", { enemigo.movete() })
 /*Moviniebto aleatorio del enemigo cada 1 segundo */
 	
