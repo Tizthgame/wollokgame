@@ -115,7 +115,7 @@ var posi_ant = []
 
 		game.whenCollideDo(personaje,{elemento =>
 			if(elemento.identificador() == "llave"){
-				personaje.agarrar_llave()
+				personaje.agarrar_llaves()
 			}})
 		game.whenCollideDo(personaje,{elemento =>
 			if(personaje.cant_llaves() == 1 and elemento.identificador() == "puerta"){
