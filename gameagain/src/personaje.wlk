@@ -24,7 +24,7 @@ object personaje{
 		game.stop()
 	}
 	
-	method agarrar_llave(){
+	method agarrar_llaves(){
 		cant_llaves += 1
 		game.say(self, "Tengo " + cant_llaves  + " Llaves")
 		game.removeVisual(llave)
