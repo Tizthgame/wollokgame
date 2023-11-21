@@ -1,0 +1,125 @@
+import wollok.game.*
+import enemigo.*
+import personaje.*
+import colisionables.*
+import assets.*
+
+
+ //Configuraciones
+ 
+program mapa{
+	game.title("Dungeon Escape")
+	game.width(13)
+	game.height(7)
+	game.cellSize(82)
+	game.ground("piso.png")
+	
+//Visuales
+	game.addVisual(pared_0)
+	game.addVisual(pared_1)
+	game.addVisual(pared_2)
+	game.addVisual(pared_3)
+	game.addVisual(pared_4)
+	game.addVisual(pared_5)
+	game.addVisual(pared_6)
+	game.addVisual(pared_7)
+	game.addVisual(pared_8)
+	game.addVisual(pared_9)
+	game.addVisual(pared_10)
+	game.addVisual(pared_11)
+	game.addVisual(pared_12)
+	game.addVisual(pared_13)
+	game.addVisual(pared_14)
+	game.addVisual(pared_15)
+	game.addVisual(pared_16)
+	game.addVisual(pared_17)
+	game.addVisual(pared_18)
+	game.addVisual(pared_19)
+	game.addVisual(pared_20)
+	game.addVisual(pared_21)
+	game.addVisual(pared_22)
+	game.addVisual(pared_23)
+	game.addVisual(pared_24)
+	game.addVisual(pared_25)
+	game.addVisual(pared_26)
+	game.addVisual(pared_27)
+	game.addVisual(pared_28)
+	game.addVisual(pared_29)
+	game.addVisual(pared_30)
+	game.addVisual(pared_31)
+	game.addVisual(pared_32)
+	game.addVisual(enemigo)
+	game.addVisual(personaje)
+	game.addVisual(llave)
+
+
+//Movimiento Personaje
+//movimiento derecha, consulta si en la posicion a la derecha del personaje es distinto a 13(el limite del tablero),
+//si esto se cumple el personaje avanza en esta direccion
+var posi_ant = []
+		keyboard.d().onPressDo{
+			if(personaje.position().right(1).x() != 13) {
+				posi_ant = personaje.position()
+				personaje.position(personaje.position().right(1))
+			}
+		}
+/*----------------------------------------------------------------------------------------------------- */
+//movimiento izquierda, consulta si en la posicion a la izquierda del personaje es distinto a -1(el limite del tablero),
+//si esto se cumple el personaje avanza en esta direccion
+	
+		keyboard.a().onPressDo{
+			if(personaje.position().left(1).x() != -1){
+				posi_ant = personaje.position()
+				personaje.position(personaje.position().left(1))
+			}
+		}
+/*----------------------------------------------------------------------------------------------------- */
+//movimiento arriba, consulta si en la posicion a la arriba del personaje es distinto a 7(el limite del tablero),
+//si esto se cumple el personaje avanza en esta direccion
+
+		keyboard.w().onPressDo{
+			if(personaje.position().up(1).y() != 7){
+				posi_ant = personaje.position()
+				personaje.position(personaje.position().up(1))
+			}
+		}
+/*----------------------------------------------------------------------------------------------------- */
+//movimiento abajo, consulta si en la posicion a la abajo del personaje es distinto a -1(el limite del tablero),
+//si esto se cumple el personaje avanza en esta direccion
+
+		keyboard.s().onPressDo{
+			if(personaje.position().down(1).y() != -1){
+				posi_ant = personaje.position()
+				personaje.position(personaje.position().down(1))
+			}
+		}
+
+
+//Coliciones
+
+//coloccion donde el personaje muere si toca al enemigo
+		game.whenCollideDo(personaje, {enemigo =>
+			if(enemigo.identificador() == "enemigo")
+			{personaje.morir()
+			}})
+ 			
+//problema de diagonales		
+		game.whenCollideDo(personaje, {elemento =>
+			if(elemento.identificador() == "pared"){
+				personaje.position(posi_ant)
+			}})	
+
+		game.whenCollideDo(personaje,{elemento =>
+			if(elemento.identificador() == "llave"){
+				personaje.agarrar_llave()
+			}})
+
+//ticks del movimiento del enemigo
+		game.onTick(1000, "movement",{enemigo.seguir_personaje(personaje)})
+	
+/*Cuando se preciona la tecla "P", se detiene el movimiento del enemigo*/
+		keyboard.p().onPressDo{game.removeTickEvent("movement")} 
+
+	game.start()
+
+}
