@@ -118,7 +118,7 @@ var posi_ant = []
 				personaje.agarrar_llave()
 			}})
 		game.whenCollideDo(personaje,{elemento =>
-			if(elemento.identificador() == "puerta"){
+			if(personaje.cant_llaves() == 1 and elemento.identificador() == "puerta"){
 				personaje.escapar()
 			}})
 		
