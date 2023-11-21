@@ -17,25 +17,26 @@ object enemigo{
 //metodo para seguir al personaje, recibe por parametro a perso en represensacion del personaje
 	method seguir_personaje(perso) {
 
-//si la posicion x del personaje es mayor a la posicion x del enemigo, el enemigo avanza a la derecha 
-    if(personaje.position().x() > position.x()){ 
-    	posi_ant_ene = self.position()
-    	position = position.right(1)}
-
-    
-//si la posicion x del personaje es menor a la posicion x del enemigo, el enemigo avanza a la izquierda 
-    if(personaje.position().x() < position.x()){
+//si la posicion x del personaje es menor a la posicion x del enemigo, el enemigo avanza a la izquierda  
+if(personaje.position().x() < position.x()){
     	posi_ant_ene = self.position()
     	position = position.left(1)}
+
+    
+//si la posicion x del personaje es mayor a la posicion x del enemigo, el enemigo avanza a la derecha 
+if(personaje.position().x() < position.x()){
+     else if(personaje.position().x() > position.x()){ 
+    	posi_ant_ene = self.position()
+    	position = position.right(1)}
    
     
 //si la posicion y del personaje es mayor a la posicion y del enemigo, el enemigo avanza arriba 
-    if(personaje.position().y() > position.y()){
+     else if(personaje.position().y() > position.y()){
     	posi_ant_ene = self.position()
     	position = position.up(1)}
     
 //si la posicion y del personaje es menor a la posicion y del enemigo, el enemigo avanza abajo 
-if(personaje.position().y() < position.y()){
+	else if(personaje.position().y() < position.y()){
     	posi_ant_ene = self.position()
     	position = position.down(1)}
     	
